@@ -79,6 +79,7 @@ def _smacof_single(dissimilarities, metric=True, n_components=2, init=None,
         # Randomly choose initial configuration
         X = random_state.rand(n_samples * n_components)
         X = X.reshape((n_samples, n_components))
+        print("X", X)
     else:
         # overrides the parameter p
         n_components = init.shape[1]
@@ -258,6 +259,7 @@ def smacof(dissimilarities, *, metric=True, n_components=2, init=None,
                 best_iter = n_iter_
     else:
         seeds = random_state.randint(np.iinfo(np.int32).max, size=n_init)
+        print("Seeds", seeds)
         results = Parallel(n_jobs=n_jobs, verbose=max(verbose - 1, 0))(
             delayed(_smacof_single)(
                 dissimilarities, metric=metric, n_components=n_components,
